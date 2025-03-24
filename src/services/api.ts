@@ -1,18 +1,18 @@
 import axios from 'axios'
-import { Anime, PaginatedResponse } from '../types'
+import { Anime } from '../types'
 
-const baseURL = import.meta.env.VITE_API_BASE_URL
-const api = axios.create({ baseURL })
+const api = axios.create({
+    baseURL: 'https://api.jikan.moe/v4',
+})
 
 // Delay function to avoid rate limiting on the Jikan API
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const getTopAnime = async (page = 1, limit = 10): Promise<Anime[]> => {
     await delay(400) // Jikan API has a limit of 4 requests per second
-    const response = await api.get<Anime[]>(
-        `/top/anime?page=${page}&limit=${limit}`
-    )
-    return response.data
+    const response = await api.get(`/top/anime?page=${page}&limit=${limit}`)
+    const animeData = response.data.data
+    return animeData
 }
 
 export const getAnimeById = async (id: number): Promise<Anime | null> => {
