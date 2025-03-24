@@ -12,6 +12,7 @@ export const useTopAnime = (page = 1, limit = 10) => {
             try {
                 setLoading(true)
                 const data = await getTopAnime(page, limit)
+                console.log('useAnime data: ', data)
                 setAnime(data)
                 setError(null)
             } catch (err) {

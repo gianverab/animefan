@@ -7,7 +7,7 @@ const Home: React.FC = () => {
         anime: topAnime,
         loading: topLoading,
         error: topError,
-    } = useTopAnime(5)
+    } = useTopAnime()
 
     return (
         <div>
