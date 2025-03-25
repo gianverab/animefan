@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Anime } from '../types'
-import { getTopAnime, getAnimeById } from '../services/api'
+import { getTopAnimes, getAnimeById } from '../services/api'
 
-export const useTopAnime = (page = 1, limit = 10) => {
-    const [anime, setAnime] = useState<Anime[]>([])
+export const useTopAnimes = (page = 1, limit = 10) => {
+    const [animes, setAnimes] = useState<Anime[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
@@ -11,9 +11,8 @@ export const useTopAnime = (page = 1, limit = 10) => {
         const fetchData = async () => {
             try {
                 setLoading(true)
-                const data = await getTopAnime(page, limit)
-                console.log('useAnime data: ', data)
-                setAnime(data)
+                const data = await getTopAnimes(page, limit)
+                setAnimes(data)
                 setError(null)
             } catch (err) {
                 setError('Error fetching top anime')
@@ -25,11 +24,11 @@ export const useTopAnime = (page = 1, limit = 10) => {
         fetchData()
     }, [page, limit])
 
-    return { anime, loading, error }
+    return { animes, loading, error }
 }
 
 export const useAnimeDetail = (id: number) => {
-    const [anime, setAnime] = useState<Anime | null>(null)
+    const [anime, setAnime] = useState<Anime | undefined>(undefined)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
@@ -37,7 +36,8 @@ export const useAnimeDetail = (id: number) => {
         const fetchData = async () => {
             try {
                 setLoading(true)
-                const data = await getAnimeById(id)
+                const response = await getAnimeById(id)
+                const data = response?.data
                 setAnime(data)
                 setError(null)
             } catch (err) {
