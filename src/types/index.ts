@@ -13,6 +13,10 @@ export interface User {
     email: string | null
     displayName: string | null
 }
+
+export interface AnimeResponse {
+    data: Anime
+}
 export interface Anime {
     mal_id: number
     title: string
