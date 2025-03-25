@@ -6,7 +6,8 @@ export default {
             colors: {
                 primary: '#6366F1',
                 secondary: '#8B5CF6',
-                dark: '#1E293B',
+                background: '#0f172a',
+                card: '#1e293b',
             },
         },
     },
