@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Anime, AnimeResponse } from '../types'
 
 const api = axios.create({
-    baseURL: 'https://api.jikan.moe/v4',
+    baseURL: import.meta.env.VITE_REACT_APP_API_BASE_URL,
 })
 
 // Delay function to avoid rate limiting on the Jikan API
