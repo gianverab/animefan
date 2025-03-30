@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/common/Navbar'
+import Footer from './components/common/Footer'
 import Home from './pages/Home'
 import AnimeDetail from './pages/AnimeDetail'
 import SignIn from './pages/SignIn'
@@ -19,7 +20,7 @@ function App() {
                         <Route path="/signup" element={<SignUp />} />
                     </Routes>
                 </div>
-                {/* Footer component goes here */}
+                <Footer />
             </AuthProvider>
         </Router>
     )
