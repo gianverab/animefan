@@ -1,6 +1,7 @@
 import React from 'react'
 import { Anime } from '../types'
 import AnimeCard from './AnimeCard'
+import Loading from './common/Loading'
 
 interface AnimeGridProps {
     anime: Anime[]
@@ -15,7 +16,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({
     error,
     title,
 }) => {
-    if (loading) return <div className="text-center">Loading...</div>
+    if (loading) return <Loading />
 
     if (error) return <div className="text-center text-red-500">{error}</div>
 
