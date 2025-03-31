@@ -71,4 +71,16 @@ export const getAnimeByCategory = async (
     }
 }
 
+export const searchAnime = async (query: string): Promise<Anime[]> => {
+    if (!query.trim()) return []
+
+    try {
+        const response = await api.get(`/anime?q=${query}&limit=10`)
+        return response.data.data
+    } catch (error) {
+        console.error('Error searching anime:', error)
+        return []
+    }
+}
+
 export default api
