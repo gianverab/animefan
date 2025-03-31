@@ -56,4 +56,19 @@ export const getSimilarAnime = async (id: number): Promise<Anime[]> => {
     }
 }
 
+export const getAnimeByCategory = async (
+    category: string,
+    limit = 20
+): Promise<Anime[]> => {
+    try {
+        const response = await api.get(
+            `/anime?genres=${category}&limit=${limit}`
+        )
+        return response.data.data
+    } catch (error) {
+        console.error('Error fetching anime by category:', error)
+        return []
+    }
+}
+
 export default api
