@@ -46,4 +46,14 @@ export const getAnimeById = async (
     return response.data
 }
 
+export const getSimilarAnime = async (id: number): Promise<Anime[]> => {
+    try {
+        const response = await api.get(`/anime/${id}/recommendations`)
+        return response.data.data.map((item: any) => item.entry).slice(0, 6)
+    } catch (error) {
+        console.error('Error fetching similar anime:', error)
+        return []
+    }
+}
+
 export default api
