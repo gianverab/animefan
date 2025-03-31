@@ -2,7 +2,16 @@ import { useState, useEffect } from 'react'
 import { Anime } from '../types'
 import { getTopAnimes, getAnimeById } from '../services/api'
 
-export const useTopAnimes = (page = 1, limit = 10) => {
+// Generate a random page between 1 and 10
+function getSecureRandom(min: number, max: number): number {
+    const range = max - min + 1
+    const randomBuffer = new Uint32Array(1)
+    window.crypto.getRandomValues(randomBuffer)
+    return min + (randomBuffer[0] % range)
+}
+const randomPage = getSecureRandom(1, 10)
+
+export const useTopAnimes = (page = randomPage, limit = 10) => {
     const [animes, setAnimes] = useState<Anime[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
