@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Anime } from '../types'
-import { getTopAnimes, getAnimeById, getUpcomingAnimes } from '../services/api'
+import {
+    getTopAnimes,
+    getAnimeById,
+    getUpcomingAnimes,
+    getSimilarAnimes,
+} from '../services/api'
 
 // Generate a random page between 1 and 10
 function getSecureRandom(min: number, max: number): number {
@@ -85,4 +90,29 @@ export const useAnimeDetail = (id: number) => {
     }, [id])
 
     return { anime, loading, error }
+}
+
+export const useSimilarAnimes = (id: number) => {
+    const [animes, setAnimes] = useState<Anime[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const data = await getSimilarAnimes(id)
+                setAnimes(data)
+                setError(null)
+            } catch (err) {
+                setError('Error fetching similar animes')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, [id])
+
+    return { animes, loading, error }
 }
