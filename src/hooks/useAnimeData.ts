@@ -5,6 +5,7 @@ import {
     getAnimeById,
     getUpcomingAnimes,
     getSimilarAnimes,
+    getAnimeByCategory,
 } from '../services/api'
 
 // Generate a random page between 1 and 10
@@ -113,6 +114,31 @@ export const useSimilarAnimes = (id: number) => {
 
         fetchData()
     }, [id])
+
+    return { animes, loading, error }
+}
+
+export const useAnimeByCategory = (category: string, limit = 20) => {
+    const [animes, setAnimes] = useState<Anime[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const data = await getAnimeByCategory(category, limit)
+                setAnimes(data)
+                setError(null)
+            } catch (err) {
+                setError('Error fetching animes by category')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, [category, limit])
 
     return { animes, loading, error }
 }
