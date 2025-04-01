@@ -6,6 +6,7 @@ import {
     getUpcomingAnimes,
     getSimilarAnimes,
     getAnimeByCategory,
+    searchAnime,
 } from '../services/api'
 
 // Generate a random page between 1 and 10
@@ -141,4 +142,36 @@ export const useAnimeByCategory = (category: string, limit = 20) => {
     }, [category, limit])
 
     return { animes, loading, error }
+}
+
+export const useAnimeSearch = () => {
+    const [query, setQuery] = useState('')
+    const [results, setResults] = useState<Anime[]>([])
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!query.trim()) {
+                setResults([])
+                return
+            }
+
+            try {
+                setLoading(true)
+                const data = await searchAnime(query)
+                setResults(data)
+                setError(null)
+            } catch (err) {
+                setError('Error searching anime')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        const timeoutId = setTimeout(fetchData, 500)
+        return () => clearTimeout(timeoutId)
+    }, [query])
+
+    return { query, setQuery, results, loading, error }
 }
