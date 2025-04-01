@@ -21,7 +21,6 @@ export const getTopAnimes = async (
 ): Promise<Anime[]> => {
     try {
         const response = await api.get(`/top/anime?page=${page}&limit=${limit}`)
-        console.log('Top Animes:', response.data.data)
         return response.data.data
     } catch (error) {
         console.error('Error fetching top anime:', error)
@@ -29,7 +28,7 @@ export const getTopAnimes = async (
     }
 }
 
-export const getUpcomingAnime = async (limit = 10): Promise<Anime[]> => {
+export const getUpcomingAnimes = async (limit = 10): Promise<Anime[]> => {
     try {
         const response = await api.get(`/seasons/upcoming?limit=${limit}`)
         return response.data.data
@@ -46,7 +45,7 @@ export const getAnimeById = async (
     return response.data
 }
 
-export const getSimilarAnime = async (id: number): Promise<Anime[]> => {
+export const getSimilarAnimes = async (id: number): Promise<Anime[]> => {
     try {
         const response = await api.get(`/anime/${id}/recommendations`)
         return response.data.data.map((item: any) => item.entry).slice(0, 6)

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Anime } from '../types'
-import { getTopAnimes, getAnimeById } from '../services/api'
+import { getTopAnimes, getAnimeById, getUpcomingAnimes } from '../services/api'
 
 // Generate a random page between 1 and 10
 function getSecureRandom(min: number, max: number): number {
@@ -24,7 +24,7 @@ export const useTopAnimes = (page = randomPage, limit = 10) => {
                 setAnimes(data)
                 setError(null)
             } catch (err) {
-                setError('Error fetching top anime')
+                setError('Error fetching top animes')
             } finally {
                 setLoading(false)
             }
@@ -32,6 +32,31 @@ export const useTopAnimes = (page = randomPage, limit = 10) => {
 
         fetchData()
     }, [page, limit])
+
+    return { animes, loading, error }
+}
+
+export const useUpcomingAnimes = (limit = 10) => {
+    const [animes, setAnimes] = useState<Anime[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const data = await getUpcomingAnimes(limit)
+                setAnimes(data)
+                setError(null)
+            } catch (err) {
+                setError('Error fetching upcoming animes')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, [limit])
 
     return { animes, loading, error }
 }
