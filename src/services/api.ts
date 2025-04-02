@@ -15,12 +15,9 @@ api.interceptors.response.use(undefined, async (error) => {
     return Promise.reject(error)
 })
 
-export const getTopAnimes = async (
-    page: number,
-    limit: number
-): Promise<Anime[]> => {
+export const getTopAnimes = async (limit = 10): Promise<Anime[]> => {
     try {
-        const response = await api.get(`/top/anime?page=${page}&limit=${limit}`)
+        const response = await api.get(`/top/anime?limit=${limit}`)
         return response.data.data
     } catch (error) {
         console.error('Error fetching top anime:', error)

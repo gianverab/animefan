@@ -12,8 +12,9 @@ const AnimeBanner: React.FC<AnimeBannerProps> = ({ anime }) => {
             <div className="absolute inset-0">
                 <img
                     src={
-                        anime.images.jpg.large_image_url ||
-                        anime.images.jpg.image_url
+                        anime.images.jpg.large_image_url
+                            ? anime.images.jpg.large_image_url
+                            : anime.images.jpg.image_url
                     }
                     alt={anime.title}
                     className="w-full h-full object-cover object-center"
