@@ -9,16 +9,7 @@ import {
     searchAnime,
 } from '../services/api'
 
-// Generate a random page between 1 and 10
-function getSecureRandom(min: number, max: number): number {
-    const range = max - min + 1
-    const randomBuffer = new Uint32Array(1)
-    window.crypto.getRandomValues(randomBuffer)
-    return min + (randomBuffer[0] % range)
-}
-const randomPage = getSecureRandom(1, 10)
-
-export const useTopAnimes = (page = randomPage, limit = 10) => {
+export const useTopAnimes = (limit = 10) => {
     const [animes, setAnimes] = useState<Anime[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -27,7 +18,7 @@ export const useTopAnimes = (page = randomPage, limit = 10) => {
         const fetchData = async () => {
             try {
                 setLoading(true)
-                const data = await getTopAnimes(page, limit)
+                const data = await getTopAnimes(limit)
                 setAnimes(data)
                 setError(null)
             } catch (err) {
@@ -38,7 +29,7 @@ export const useTopAnimes = (page = randomPage, limit = 10) => {
         }
 
         fetchData()
-    }, [page, limit])
+    }, [limit])
 
     return { animes, loading, error }
 }
