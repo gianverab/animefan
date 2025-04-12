@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import AnimeContent from '../components/AnimeContent'
+import AnimeContent from '../components/anime/AnimeContent'
 import { useAnimeDetail } from '../hooks/useAnimeData'
 import Loading from '../components/common/Loading'
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import AnimeGrid from '../components/AnimeGrid'
+import AnimeGrid from '../components/anime/AnimeGrid'
 import { useTopAnimes, useUpcomingAnimes } from '../hooks/useAnimeData'
-import AnimeBanner from '../components/AnimeBanner'
+import AnimeBanner from '../components/anime/AnimeBanner'
 
 const Home: React.FC = () => {
     const {

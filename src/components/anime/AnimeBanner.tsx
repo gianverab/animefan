@@ -1,5 +1,5 @@
 import React from 'react'
-import { Anime } from '../types'
+import { Anime } from '../../types'
 import { Link } from 'react-router-dom'
 
 interface AnimeBannerProps {

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Anime } from '../types'
+import { Anime } from '../../types'
 import AnimeCard from './AnimeCard'
-import Loading from './common/Loading'
+import Loading from '../common/Loading'
 
 interface AnimeGridProps {
     anime: Anime[]
