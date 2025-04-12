@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import AnimeDetail from './pages/AnimeDetail'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import SearchPage from './pages/SearchPage'
 import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                         <Route path="/anime/:id" element={<AnimeDetail />} />
                         <Route path="/signin" element={<SignIn />} />
                         <Route path="/signup" element={<SignUp />} />
+                        <Route path="/search" element={<SearchPage />} />
                     </Routes>
                 </div>
                 <Footer />

@@ -13,10 +13,10 @@ const Navbar: React.FC = () => {
         navigate('/')
     }
 
-    const handleMenuToggle = () => {
+    const handleToggleMenu = () => {
         setIsMenuOpen((prev) => !prev)
     }
-    const handleMenuClose = () => {
+    const handleCloseMenu = () => {
         setIsMenuOpen(false)
     }
 
@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
                     </div>
 
                     <div className="hidden md:block w-full max-w-md mx-4">
-                        <SearchBar />
+                        <SearchBar className="mr-4" />
                     </div>
 
                     <div className="hidden md:block">
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
 
                     <div className="md:hidden flex items-center">
                         <button
-                            onClick={handleMenuToggle}
+                            onClick={handleToggleMenu}
                             type="button"
                             aria-controls="mobile-menu"
                             aria-expanded={isMenuOpen}
@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
                         <Link
                             to="/"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
-                            onClick={handleMenuClose}
+                            onClick={handleCloseMenu}
                         >
                             Home
                         </Link>
@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
                             <button
                                 onClick={() => {
                                     handleLogout()
-                                    handleMenuClose()
+                                    handleCloseMenu()
                                 }}
                                 className="text-gray-300 hover:text-white block px-3 py-2 rounded-md w-full text-left"
                             >
@@ -127,14 +127,14 @@ const Navbar: React.FC = () => {
                                 <Link
                                     to="/signin"
                                     className="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
-                                    onClick={handleMenuClose}
+                                    onClick={handleCloseMenu}
                                 >
                                     Sign In
                                 </Link>
                                 <Link
                                     to="/signup"
                                     className="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
-                                    onClick={handleMenuClose}
+                                    onClick={handleCloseMenu}
                                 >
                                     Sign Up
                                 </Link>
@@ -142,7 +142,7 @@ const Navbar: React.FC = () => {
                         )}
                     </div>
                     <div className="px-4 pb-4">
-                        <SearchBar />
+                        <SearchBar onSearch={handleCloseMenu} />
                     </div>
                 </div>
             )}
