@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import SearchBar from '../search/Searchbar'
 
 const Navbar: React.FC = () => {
     const { logout, isAuthenticated } = useAuth()
@@ -12,6 +13,13 @@ const Navbar: React.FC = () => {
         navigate('/')
     }
 
+    const handleMenuToggle = () => {
+        setIsMenuOpen((prev) => !prev)
+    }
+    const handleMenuClose = () => {
+        setIsMenuOpen(false)
+    }
+
     return (
         <nav className="bg-card shadow-md sticky top-0 z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,7 +29,11 @@ const Navbar: React.FC = () => {
                             AnimeFan
                         </Link>
                     </div>
-                    {/* SearchBar goes here */}
+
+                    <div className="hidden md:block w-full max-w-md mx-4">
+                        <SearchBar />
+                    </div>
+
                     <div className="hidden md:block">
                         <div className="flex items-center space-x-4">
                             <Link
@@ -55,7 +67,10 @@ const Navbar: React.FC = () => {
 
                     <div className="md:hidden flex items-center">
                         <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            onClick={handleMenuToggle}
+                            type="button"
+                            aria-controls="mobile-menu"
+                            aria-expanded={isMenuOpen}
                             className="text-gray-300 hover:text-white p-2"
                         >
                             <svg
@@ -84,13 +99,15 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Mobile menu */}
             {isMenuOpen && (
                 <div className="md:hidden">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link
                             to="/"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
+                            onClick={handleMenuClose}
                         >
                             Home
                         </Link>
@@ -99,7 +116,7 @@ const Navbar: React.FC = () => {
                             <button
                                 onClick={() => {
                                     handleLogout()
-                                    setIsMenuOpen(false)
+                                    handleMenuClose()
                                 }}
                                 className="text-gray-300 hover:text-white block px-3 py-2 rounded-md w-full text-left"
                             >
@@ -110,19 +127,22 @@ const Navbar: React.FC = () => {
                                 <Link
                                     to="/signin"
                                     className="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
-                                    onClick={() => setIsMenuOpen(false)}
+                                    onClick={handleMenuClose}
                                 >
                                     Sign In
                                 </Link>
                                 <Link
                                     to="/signup"
                                     className="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
-                                    onClick={() => setIsMenuOpen(false)}
+                                    onClick={handleMenuClose}
                                 >
                                     Sign Up
                                 </Link>
                             </>
                         )}
+                    </div>
+                    <div className="px-4 pb-4">
+                        <SearchBar />
                     </div>
                 </div>
             )}
