@@ -1,5 +1,5 @@
 import React from 'react'
-import { Anime } from '../types'
+import { Anime } from '../../types'
 
 interface AnimeContentProps {
     anime: Anime
