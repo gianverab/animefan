@@ -1,11 +1,28 @@
 import React from 'react'
 import { Anime } from '../../types'
+import { useFavorites } from '../../hooks/useFavorites'
+import { useAuth } from '../../hooks/useAuth'
 
 interface AnimeContentProps {
     anime: Anime
 }
 
 const AnimeContent: React.FC<AnimeContentProps> = ({ anime }) => {
+    const { isAuthenticated } = useAuth()
+    const { isFavorite, addFavorite, removeFavorite } = useFavorites()
+
+    const isFav = isFavorite(anime.mal_id)
+
+    const handleFavoriteToggle = async (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (isFav) {
+            await removeFavorite(anime.mal_id)
+        } else {
+            await addFavorite(anime.mal_id)
+        }
+    }
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -18,6 +35,32 @@ const AnimeContent: React.FC<AnimeContentProps> = ({ anime }) => {
                         alt={anime.title}
                         className="w-full max-w-sm rounded-lg shadow-lg mx-auto"
                     />
+                    {isAuthenticated && (
+                        <button
+                            onClick={handleFavoriteToggle}
+                            className={`mt-4 w-full py-2 px-4 rounded-md flex items-center justify-center ${
+                                isFav
+                                    ? 'bg-red-600 hover:bg-red-700'
+                                    : 'bg-primary hover:bg-secondary'
+                            } transition-colors duration-200`}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 mr-2"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            {isFav
+                                ? 'Remove from Favorites'
+                                : 'Add to Favorites'}
+                        </button>
+                    )}
                     <div className="mt-6 bg-card p-4 rounded-lg">
                         <h3 className="font-semibold text-lg mb-2">
                             Information
